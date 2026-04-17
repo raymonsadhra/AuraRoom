@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # AuraRoom
 
 AuraRoom is a hackathon-ready ambient intelligence system that reads a room with camera + microphone signals and converts them into live room-state insights.
@@ -197,3 +198,6 @@ Each event stores timestamp, people count, motion, audio, noise label, room stat
 ```bash
 pytest -q
 ```
+=======
+# AuraRoom
+>>>>>>> d2880efda473ddc337ae2477eb77cf33d2f815d8
