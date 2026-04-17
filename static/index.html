@@ -13,75 +13,109 @@ Hardware interaction:
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AuraRoom Dashboard</title>
+    <title>AuraRoom Command Console</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap"
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="/static/style.css" />
   </head>
   <body>
-    <div class="bg-orb orb-1"></div>
-    <div class="bg-orb orb-2"></div>
+    <div class="scanline"></div>
+    <div class="glow glow-left"></div>
+    <div class="glow glow-right"></div>
 
-    <main class="container">
-      <header class="hero">
-        <p class="tag">AuraRoom</p>
-        <h1>Your Room Reads the Room</h1>
-        <p class="subtitle">Live ambient intelligence powered by vision, audio, and AI insights.</p>
+    <main class="console">
+      <header class="console-header">
+        <p class="badge">AURAROOM / DEFENSE VIEW</p>
+        <h1>Live Room Intelligence Console</h1>
+        <p class="subtitle">Real-time occupancy, motion, audio, and behavior state.</p>
       </header>
 
-      <section class="cards-grid">
-        <!-- People panel supports the core story: "who is in the room right now". -->
-        <article class="metric-card">
-          <p class="label">People</p>
-          <p id="peopleCount" class="value">0</p>
+      <section class="top-row">
+        <article id="stateCard" class="panel state-card state-unknown">
+          <p class="panel-kicker">Live Room State</p>
+          <div class="state-main">
+            <span id="stateSignal" class="state-signal">⚫</span>
+            <p id="roomStateText" class="state-text">Empty</p>
+          </div>
+          <p id="stateSubtext" class="state-subtext">No active occupants detected.</p>
         </article>
 
-        <!-- State panel translates sensor data into easy human language. -->
-        <article class="metric-card">
-          <p class="label">Room State</p>
-          <p id="roomState" class="value text">unknown</p>
+        <article class="panel people-card">
+          <p class="panel-kicker">People Count</p>
+          <p id="peopleHeadline" class="people-headline">👥 0 People Detected</p>
+          <div id="peopleIcons" class="people-icons" aria-label="occupancy icons"></div>
         </article>
 
-        <!-- Noise panel highlights audio-driven discussion or chaos. -->
-        <article class="metric-card">
-          <p class="label">Noise</p>
-          <p id="noiseLevel" class="value text">low</p>
-        </article>
-
-        <!-- Motion panel highlights activity level from camera differencing. -->
-        <article class="metric-card">
-          <p class="label">Motion</p>
-          <p id="motionLevel" class="value">0.0000</p>
+        <article class="panel energy-card">
+          <p class="panel-kicker">Energy Score</p>
+          <div id="energyRing" class="energy-ring" role="img" aria-label="energy score gauge">
+            <span id="energyValue" class="energy-value">0</span>
+            <span class="energy-max">/ 100</span>
+          </div>
+          <p id="energyLabel" class="energy-label">Calm baseline</p>
         </article>
       </section>
 
-      <section class="insight-panel">
-        <p class="panel-title">Latest Insight</p>
-        <p id="insightText" class="insight-text">Waiting for room telemetry...</p>
+      <section class="middle-row">
+        <article class="panel meter-card">
+          <p class="panel-kicker">Noise Level</p>
+          <div class="meter-track">
+            <div id="noiseFill" class="meter-fill"></div>
+          </div>
+          <div class="meter-scale">
+            <span>Quiet</span>
+            <span>Loud</span>
+          </div>
+          <p id="noiseMeta" class="meter-meta">audio_energy: 0.0000</p>
+        </article>
+
+        <article class="panel meter-card">
+          <p class="panel-kicker">Movement Level</p>
+          <div class="meter-track">
+            <div id="motionFill" class="meter-fill movement"></div>
+          </div>
+          <div class="meter-scale">
+            <span>Still</span>
+            <span>Active</span>
+          </div>
+          <p id="motionMeta" class="meter-meta">motion_level: 0.0000</p>
+        </article>
+
+        <article class="panel insight-card">
+          <p class="panel-kicker">Main Insight</p>
+          <p id="insightText" class="insight-main">Waiting for room telemetry...</p>
+        </article>
       </section>
 
-      <section class="charts-grid">
-        <article class="chart-card">
-          <p class="panel-title">Recent Activity Trends</p>
+      <section class="bottom-row">
+        <article class="panel chart-panel">
+          <p class="panel-kicker">Live Timeline (Last 30 Seconds)</p>
           <canvas id="trendChart"></canvas>
         </article>
 
-        <article class="chart-card">
-          <p class="panel-title">Hourly Focus Pattern</p>
-          <canvas id="hourlyChart"></canvas>
+        <article class="panel timeline-panel">
+          <p class="panel-kicker">State Timeline</p>
+          <div id="stateTimeline" class="state-timeline"></div>
+        </article>
+
+        <article class="panel feed-panel">
+          <p class="panel-kicker">Insight Feed</p>
+          <ul id="insightFeed" class="feed-list"></ul>
         </article>
       </section>
 
-      <footer class="footer-note">
+      <footer class="footer">
         <span id="lastUpdated">Last updated: --</span>
         <span id="healthBadge" class="health">Health: unknown</span>
       </footer>
     </main>
+
+    <div id="alertStack" class="alert-stack" aria-live="polite"></div>
 
     <script src="/static/app.js"></script>
   </body>
