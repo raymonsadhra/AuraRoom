@@ -110,6 +110,7 @@ body {
 
 .metric-card {
   padding: 16px;
+  min-height: 132px;
   animation: rise 0.8s ease;
 }
 
@@ -129,7 +130,10 @@ body {
 
 .value.text {
   text-transform: capitalize;
-  font-size: 1.6rem;
+  font-size: clamp(1.05rem, 2vw, 1.6rem);
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 .insight-panel {

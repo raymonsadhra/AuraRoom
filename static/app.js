@@ -113,6 +113,7 @@ async function refreshCurrent() {
 
     el.peopleCount.textContent = String(data.people_count ?? 0);
     el.roomState.textContent = String(data.room_state ?? "unknown");
+    el.roomState.title = el.roomState.textContent;
     el.noiseLevel.textContent = String(data.noise_level_label ?? "low");
     el.motionLevel.textContent = safeNum(data.motion_level, 4);
     el.insightText.textContent = data.insight_text || "Waiting for room telemetry...";

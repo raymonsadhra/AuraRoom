@@ -95,6 +95,7 @@ class AppConfig:
     log_path_sqlite: str = "data/room_events.db"
 
     # Insight settings.
+    use_ml_anomaly: bool = True
     insight_mode: str = "local"  # local or llm
     llm_provider: str = "openai"
     openai_api_key: str = ""
@@ -135,6 +136,7 @@ def load_config() -> AppConfig:
         log_backend=os.getenv("LOG_BACKEND", "jsonl").strip().lower(),
         log_path_jsonl=os.getenv("LOG_PATH_JSONL", "data/room_events.jsonl"),
         log_path_sqlite=os.getenv("LOG_PATH_SQLITE", "data/room_events.db"),
+        use_ml_anomaly=_get_bool("USE_ML_ANOMALY", True),
         insight_mode=os.getenv("INSIGHT_MODE", "local").strip().lower(),
         llm_provider=os.getenv("LLM_PROVIDER", "openai").strip().lower(),
         openai_api_key=os.getenv("OPENAI_API_KEY", ""),

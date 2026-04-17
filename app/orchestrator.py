@@ -62,7 +62,10 @@ class AuraOrchestrator:
             noise_low_threshold=config.noise_low_threshold,
             noise_high_threshold=config.noise_high_threshold,
         )
-        self.classifier = RoomClassifier()
+        self.classifier = RoomClassifier(
+            use_ml_anomaly=config.use_ml_anomaly,
+            model_path=str(config.base_dir / "data" / "room_anomaly_model.pkl"),
+        )
         self.insight_service = InsightService.build(
             mode=config.insight_mode,
             llm_provider_name=config.llm_provider,
