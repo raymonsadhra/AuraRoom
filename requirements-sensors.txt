@@ -1,0 +1,8 @@
+# Optional sensor/vision stack for full AuraRoom perception layer.
+# Recommended Python version for this file: 3.11 on macOS/Linux.
+opencv-python>=4.10.0.84
+ultralytics>=8.3.53
+sounddevice>=0.5.1
+
+# Test runner (optional)
+pytest>=8.3.4

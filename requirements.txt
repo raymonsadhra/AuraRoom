@@ -1,0 +1,5 @@
+# Core dependencies (works without camera/mic hardware attached).
+flask>=3.1.0,<4.0.0
+numpy>=1.23
+python-dotenv>=1.0.1,<2.0.0
+openai>=1.58.1,<2.0.0

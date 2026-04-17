@@ -1,0 +1,88 @@
+<!doctype html>
+<!--
+AuraRoom dashboard entry page.
+What this file does:
+- Defines visual layout for live room intelligence panels and trend charts.
+How it contributes to AuraRoom:
+- Gives judges a clear real-time story: who is present, how the room feels,
+  and how behavior changes over time.
+Hardware interaction:
+- Indirect; renders metrics generated from camera and microphone pipelines.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AuraRoom Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <main class="container">
+      <header class="hero">
+        <p class="tag">AuraRoom</p>
+        <h1>Your Room Reads the Room</h1>
+        <p class="subtitle">Live ambient intelligence powered by vision, audio, and AI insights.</p>
+      </header>
+
+      <section class="cards-grid">
+        <!-- People panel supports the core story: "who is in the room right now". -->
+        <article class="metric-card">
+          <p class="label">People</p>
+          <p id="peopleCount" class="value">0</p>
+        </article>
+
+        <!-- State panel translates sensor data into easy human language. -->
+        <article class="metric-card">
+          <p class="label">Room State</p>
+          <p id="roomState" class="value text">unknown</p>
+        </article>
+
+        <!-- Noise panel highlights audio-driven discussion or chaos. -->
+        <article class="metric-card">
+          <p class="label">Noise</p>
+          <p id="noiseLevel" class="value text">low</p>
+        </article>
+
+        <!-- Motion panel highlights activity level from camera differencing. -->
+        <article class="metric-card">
+          <p class="label">Motion</p>
+          <p id="motionLevel" class="value">0.0000</p>
+        </article>
+      </section>
+
+      <section class="insight-panel">
+        <p class="panel-title">Latest Insight</p>
+        <p id="insightText" class="insight-text">Waiting for room telemetry...</p>
+      </section>
+
+      <section class="charts-grid">
+        <article class="chart-card">
+          <p class="panel-title">Recent Activity Trends</p>
+          <canvas id="trendChart"></canvas>
+        </article>
+
+        <article class="chart-card">
+          <p class="panel-title">Hourly Focus Pattern</p>
+          <canvas id="hourlyChart"></canvas>
+        </article>
+      </section>
+
+      <footer class="footer-note">
+        <span id="lastUpdated">Last updated: --</span>
+        <span id="healthBadge" class="health">Health: unknown</span>
+      </footer>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
